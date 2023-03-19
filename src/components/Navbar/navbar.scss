@@ -1,0 +1,46 @@
+@import '../../assets/scss/colors';
+@import '../../assets/scss/screensizes';
+
+.navbar-container{
+  height: 64px;
+  padding: 16px 32px;
+  background-color: $white;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  column-gap: 8px;
+  .avatar{
+    height: 32px;
+  }
+  .username {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 0;
+    span {
+      color: $primary;
+    }
+  }
+  .mobile-menu{
+    display: none;
+    align-items: center;
+    .menu-icon {
+      font-size: 24px;
+      margin-right: 16px;
+    }
+    .menu-logo{
+      height: 18px;
+    }
+  }
+  @media only screen and (max-width: $screen-sm){
+    justify-content: space-between;
+    padding: 8px 16px;
+
+    .mobile-menu{
+      display: flex;
+    }
+
+    .username{
+      display: none;
+    }
+  }
+}

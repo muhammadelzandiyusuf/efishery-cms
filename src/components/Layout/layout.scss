@@ -1,4 +1,22 @@
+@import '../../assets/scss/colors';
+@import '../../assets/scss/screensizes';
+
 .layout {
   display: flex;
   flex-direction: row;
+
+  .main-layout {
+    flex: 1;
+
+    .main-content{
+      height: calc(100vh - 64px);
+      width: calc(100vw - 248px);
+      overflow-y: auto;
+      background-color: $grey;
+
+      @media(max-width: $screen-sm){
+        width: 100%;
+      }
+    }
+  }
 }
