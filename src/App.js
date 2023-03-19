@@ -1,7 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
 
 import appRoutes from './routes';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@/assets/scss/global.scss';
 
 const App = () => {
   return (

@@ -1,0 +1,25 @@
+html, body{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+}
+
+a{
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.overlay{
+  z-index: 2;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+}
