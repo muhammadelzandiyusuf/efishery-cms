@@ -1,17 +1,32 @@
-html, body{
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
+@import './colors';
 
-*{
+*,
+::after,
+::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
-  margin: 0;
 }
 
-a{
+html {
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.048px;
+  background-color: $grey;
+}
+
+a {
   color: inherit;
-  text-decoration: inherit;
+  background-color: transparent;
+  text-decoration: none;
+  transition: color 0.3s;
+  line-height: 0;
 }
 
 .overlay{

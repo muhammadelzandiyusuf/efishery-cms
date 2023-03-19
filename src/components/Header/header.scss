@@ -1,0 +1,46 @@
+@import '../../assets/scss/screensizes';
+@import '../../assets/scss/colors';
+
+.pageheader{
+  margin: 24px;
+  padding: 16px;
+  background-color: var(--white-background-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  .pageheader-content{
+    &-title{
+      font-size: 26px;
+      font-weight: 700;
+      color: $primary;
+      text-transform: uppercase;
+    }
+    &-description{
+      font-weight: 400;
+    }
+  }
+  .pageheader-children{
+    display: flex;
+    gap: 12px;
+  }
+  @media(max-width: $screen-sm){
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    .pageheader-content{
+      margin-bottom: 16px;
+      &-title{
+        font-size: 18px;
+        line-height: 1;
+      }
+      &-description{
+        font-size: 14px;
+      }
+    }
+    .pageheader-children{
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+}

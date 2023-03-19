@@ -1,0 +1,33 @@
+@import '../../assets/scss/colors';
+
+.button{
+  outline: none;
+  box-shadow: none;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 700;
+  border: 1px solid;
+  padding: 8px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  &.primary{
+    background-color: $primary;
+    border-color: $primary;
+    color: $white;
+    &:hover {
+      background-color: $primary-hover;
+      border-color: $primary-hover;
+    }
+  }
+  &.default{
+    background-color: $white;
+    border-color: $grey;
+    color: $primary;
+    &:hover {
+      background-color: $grey;
+      border-color: $primary;
+    }
+  }
+}
