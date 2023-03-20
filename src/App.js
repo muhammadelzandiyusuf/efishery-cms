@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
+import NotFound from '@/pages/NotFound';
+
 import { store } from './redux';
 import appRoutes from './routes';
 
@@ -15,6 +17,7 @@ const App = () => {
           {appRoutes.map((item, index) => (
             <Route {...item} key={index} />
           ))}
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </Provider>

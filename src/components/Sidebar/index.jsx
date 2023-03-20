@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { AiOutlineShoppingCart, AiOutlineTeam } from 'react-icons/ai';
+import { AiOutlineLineChart, AiOutlineHome } from 'react-icons/ai';
 
 import LogoImage from '@/assets/images/logo.png';
 
@@ -35,13 +35,13 @@ const Sidebar = () => {
             className={`${pathName[1] === '' ? 'active' : ''}`}
             onClick={() => handleToLink('/')}
           >
-            <AiOutlineTeam className='icon' /> Customer
+            <AiOutlineHome className='icon' /> Beranda
           </div>
           <div
-            className={`${pathName[1] === 'order' ? 'active' : ''}`}
-            onClick={() => handleToLink('/order')}
+            className={`${pathName[1] === 'chart' ? 'active' : ''}`}
+            onClick={() => handleToLink('/chart')}
           >
-            <AiOutlineShoppingCart className='icon' /> Order
+            <AiOutlineLineChart className='icon' /> Chart
           </div>
         </div>
       </div>
