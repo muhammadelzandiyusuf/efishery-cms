@@ -41,7 +41,12 @@ const getSearchProducts = (state, action) => {
   const originalList = state.lists;
   const search = action.data.toLowerCase();
   const searchList = originalList?.filter(
-    (row) => row.komoditas.toLowerCase().indexOf(search) > -1
+    (row) =>
+      (row.komoditas && row.komoditas.toLowerCase().indexOf(search) > -1) ||
+      (row.area_provinsi && row.area_provinsi.toLowerCase().indexOf(search) > -1) ||
+      (row.area_kota && row.area_kota.toLowerCase().indexOf(search) > -1) ||
+      (row.size && row.size.toLowerCase().indexOf(search)) > -1 ||
+      (row.price && row.price.toLowerCase().indexOf(search)) > -1
   );
   return updateObject(state, {
     ...state,

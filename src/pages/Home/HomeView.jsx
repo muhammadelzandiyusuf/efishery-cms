@@ -36,7 +36,7 @@ const HomeView = () => {
         <Header title='Komoditas Perikanan' desc='Data harga komoditas perikanan Indonesia'>
           <Textfield
             onChange={(e) => onChangeSearch(e.target.value)}
-            placeholder='Cari Komoditas Ikan'
+            placeholder='Cari Data'
             icon={<AiOutlineSearch className='icon font-18 color-primary' />}
           />
           <Button type='primary'>
