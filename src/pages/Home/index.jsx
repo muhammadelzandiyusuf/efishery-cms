@@ -1,18 +1,46 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Localbase from 'localbase';
+import { notify } from 'react-notify-toast';
 
 import { apiService } from '@/utils/api/actionGeneralApi';
 import { GetDataArea, GetDataProduct, GetDataSize } from '@/utils/api/methodConstApi';
 
 import HomeView from './HomeView';
 
-import { getCity, getListProduct, getProvince, getSize } from '../../redux';
+import { getCity, getListProduct, getProvince, getSearchProduct, getSize } from '../../redux';
+import { deleteData } from '@/utils/mixins';
 
 const Home = () => {
   const localDb = new Localbase('efishery');
   const dispatch = useDispatch();
+  const [productID, setProductID] = useState('');
+  const [isDeleteShow, setIsDeleteShow] = useState(false);
+  const [loading, setLoading] = useState(false);
 
+  const handleShowDelete = (id) => {
+    setProductID(id);
+    setIsDeleteShow(true);
+  };
+
+  const handleShowFormEdit = (id) => {
+    console.log(id);
+  };
+
+  const onChangeSearch = (value) => {
+    dispatch(getSearchProduct(value));
+  };
+
+  const handleDelete = useCallback(async () => {
+    setLoading(true);
+    const submit = await deleteData(productID);
+    if (submit.status) {
+      await getList();
+      setIsDeleteShow(false);
+      notify.show('Data komoditas berhasil dihapus', 'success', 5000);
+    }
+    setLoading(false);
+  }, []);
   const getList = async () => {
     const listProduct = (await apiService(GetDataProduct)) || [];
     if (listProduct && listProduct.length > 0) {
@@ -103,7 +131,18 @@ const Home = () => {
     getListOfSize();
   }, []);
 
-  return <HomeView />;
+  return (
+    <HomeView
+      onChangeSearch={onChangeSearch}
+      handleShowDelete={handleShowDelete}
+      handleShowFormEdit={handleShowFormEdit}
+      isDeleteShow={isDeleteShow}
+      setIsDeleteShow={setIsDeleteShow}
+      productID={productID}
+      handleDelete={handleDelete}
+      loading={loading}
+    />
+  );
 };
 
 export default Home;

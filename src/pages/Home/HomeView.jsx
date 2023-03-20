@@ -1,38 +1,38 @@
+import { lazy } from 'react';
 import { Helmet } from 'react-helmet';
 import { AiOutlinePlus, AiOutlineSearch } from 'react-icons/ai';
-import { useDispatch, useSelector } from 'react-redux';
+import Notifications from 'react-notify-toast';
 
 import Layout from '@/components/Layout';
 import Header from '@/components/Header';
 import Textfield from '@/components/Textfield';
 import Button from '@/components/Button';
 
-import { getSearchProduct, productListSelector } from '../../redux';
-
 import Filter from './sections/Filter';
 import TableCustom from './sections/Table';
 import './home.scss';
+import { useSelector } from 'react-redux';
+import { productListSelector } from '../../redux';
 
-const HomeView = () => {
-  const dispatch = useDispatch();
+const FormDelete = lazy(() => import('./sections/FormDelete'));
+
+const HomeView = ({
+  onChangeSearch,
+  handleShowDelete,
+  handleShowFormEdit,
+  isDeleteShow,
+  setIsDeleteShow,
+  productID,
+  handleDelete,
+  loading,
+}) => {
   const products = useSelector(productListSelector);
-
-  const handleShowDelete = (id) => {
-    console.log(id);
-  };
-
-  const handleShowFormEdit = (id) => {
-    console.log(id);
-  };
-
-  const onChangeSearch = (value) => {
-    dispatch(getSearchProduct(value));
-  };
 
   return (
     <Layout>
       <Helmet>Komoditas Perikanan - eFishery</Helmet>
       <section>
+        <Notifications />
         <Header title='Komoditas Perikanan' desc='Data harga komoditas perikanan Indonesia'>
           <Textfield
             onChange={(e) => onChangeSearch(e.target.value)}
@@ -52,6 +52,14 @@ const HomeView = () => {
             handleShowFormEdit={handleShowFormEdit}
           />
         </div>
+        <FormDelete
+          show={isDeleteShow}
+          onHide={() => setIsDeleteShow(false)}
+          id={productID}
+          handleDelete={handleDelete}
+          message='Apakah kamu yakin akan menghapus data berikut'
+          loading={loading}
+        />
       </section>
     </Layout>
   );
