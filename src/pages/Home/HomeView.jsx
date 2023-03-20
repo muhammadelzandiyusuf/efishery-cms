@@ -1,18 +1,20 @@
 import { Helmet } from 'react-helmet';
 import { AiOutlinePlus, AiOutlineSearch } from 'react-icons/ai';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Layout from '@/components/Layout';
 import Header from '@/components/Header';
 import Textfield from '@/components/Textfield';
 import Button from '@/components/Button';
+import Loading from '@/components/Loading';
 
-import { productListSelector } from '../../redux';
+import { getSearchProduct, productListSelector } from '../../redux';
 
 import TableCustom from './sections/Table';
 import './home.scss';
 
 const HomeView = () => {
+  const dispatch = useDispatch();
   const products = useSelector(productListSelector);
 
   const handleShowDelete = (id) => {
@@ -23,26 +25,35 @@ const HomeView = () => {
     console.log(id);
   };
 
+  const onChangeSearch = (value) => {
+    dispatch(getSearchProduct(value));
+  };
+
   return (
     <Layout>
-      <Helmet>Daftar Harga - eFishery</Helmet>
+      <Helmet>Komoditas Perikanan - eFishery</Helmet>
       <section>
-        <Header title='Perikanan Management' desc='Data harga perikanan Indonesia'>
+        <Header title='Komoditas Perikanan' desc='Data harga komoditas perikanan Indonesia'>
           <Textfield
+            onChange={(e) => onChangeSearch(e.target.value)}
             placeholder='Cari Komoditas Ikan'
             icon={<AiOutlineSearch className='icon font-18 color-primary' />}
           />
           <Button type='primary'>
-            <span className='text-uppercase'>Tambah Harga</span>
-            <AiOutlinePlus className='font-18 ml-8p' />
+            <span className='text-uppercase'>Tambah Komoditas</span>
+            <AiOutlinePlus />
           </Button>
         </Header>
         <div className='home-table'>
-          <TableCustom
-            bodies={products}
-            handleShowDelete={handleShowDelete}
-            handleShowFormEdit={handleShowFormEdit}
-          />
+          {products.length > 0 ? (
+            <TableCustom
+              bodies={products}
+              handleShowDelete={handleShowDelete}
+              handleShowFormEdit={handleShowFormEdit}
+            />
+          ) : (
+            <Loading />
+          )}
         </div>
       </section>
     </Layout>

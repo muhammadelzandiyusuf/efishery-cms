@@ -40,7 +40,7 @@ const TableCustom = ({ bodies, handleShowDelete, handleShowFormEdit }) => {
                   <td>{body.area_kota !== null ? body.area_kota : '-'}</td>
                   <td>{body.size}</td>
                   <td>Rp. {formatCurrency(body.price, undefined, '.')}</td>
-                  <td>{convertDate(body.tgl_parsed)}</td>
+                  <td>{convertDate(body.tgl_parsed, 'DD-MM-YYYY')}</td>
                   <td>
                     <span onClick={() => handleShowFormEdit(body.uuid)} className='table-button'>
                       <AiOutlineEdit className='icon' /> Edit
@@ -81,7 +81,7 @@ const TableCustom = ({ bodies, handleShowDelete, handleShowFormEdit }) => {
               </div>
               <div className='table-label'>
                 <div className='table-label-property'>Tanggal</div>
-                {convertDate(body.dateJoined)}
+                {convertDate(body.tgl_parsed, 'DD MMMM YYYY')}
               </div>
               <div className='table-action'>
                 <span onClick={() => handleShowFormEdit(body.uuid)} className='table-button'>
