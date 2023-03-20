@@ -17,7 +17,14 @@ import {
   getSize,
   productListSelector,
 } from '../../redux';
-import { deleteData, getSupportData, setDataForEdit, submitData, updateData } from '@/utils/mixins';
+import {
+  deleteData,
+  getSupportData,
+  resetForm,
+  setDataForEdit,
+  submitData,
+  updateData,
+} from '@/utils/mixins';
 
 const Home = () => {
   const products = useSelector(productListSelector);
@@ -35,7 +42,7 @@ const Home = () => {
   const [isShowDetail, setIsShowDetail] = useState(false);
 
   const getDataJsonToForm = async () => {
-    const newSchema = await getSupportData(schema);
+    const newSchema = await getSupportData(productSchema);
     setSchema(newSchema);
     setOnLoadSchema(true);
   };
@@ -63,6 +70,7 @@ const Home = () => {
   const handleShowFormAdd = async () => {
     setIsShowForm(true);
     setFormType('add');
+    await resetForm(productSchema);
   };
 
   const onSubmitForm = async (params) => {

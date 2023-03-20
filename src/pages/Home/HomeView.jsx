@@ -43,7 +43,9 @@ const HomeView = ({
 
   return (
     <Layout>
-      <Helmet>Komoditas Perikanan - eFishery</Helmet>
+      <Helmet>
+        <title>Komoditas Perikanan - eFishery</title>
+      </Helmet>
       <section>
         <Notifications />
         <Header title='Komoditas Perikanan' desc='Data harga komoditas perikanan Indonesia'>

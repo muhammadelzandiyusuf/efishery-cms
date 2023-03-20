@@ -88,6 +88,15 @@ export const setDataForEdit = (param, content) => {
   return param;
 };
 
+export const resetForm = (param) => {
+  param['komoditas'].defaultValue = '';
+  param['provinsi'].defaultValue = '';
+  param['kota'].defaultValue = '';
+  param['ukuran'].defaultValue = '';
+  param['harga'].defaultValue = '';
+  return param;
+};
+
 export const updateData = async (params, id) => {
   const result = {
     status: false,
