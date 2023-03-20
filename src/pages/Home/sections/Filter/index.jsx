@@ -2,17 +2,19 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import SelectCustom from '@/components/Select';
+import { listOfSort } from '@/constants/sort';
+import Button from '@/components/Button';
 
 import {
   citySelector,
   getFilterList,
   getSortList,
   provinceSelector,
+  resetFilter,
   sizeSelector,
 } from '../../../../redux';
 
 import './filter.scss';
-import { listOfSort } from '@/constants/sort';
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -37,13 +39,21 @@ const Filter = () => {
       model: model,
       value: params,
     };
-    console.log('log');
     dispatch(getSortList(obj));
+  };
+
+  const handleResetFilter = () => {
+    dispatch(resetFilter());
   };
 
   return (
     <div className='filter'>
-      <div className='filter-title'>Filter:</div>
+      <div className='filter-title'>
+        Filter:
+        <Button type='primary' onClick={handleResetFilter}>
+          Reset Filter
+        </Button>
+      </div>
       <div className='filter-wrapper'>
         <SelectCustom title='Provinsi' data={provinces} model='province' action={filterData} />
         <SelectCustom

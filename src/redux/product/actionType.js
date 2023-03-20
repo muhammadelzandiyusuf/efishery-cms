@@ -3,6 +3,7 @@ const actionType = {
   GET_SEARCH_PRODUCT: 'GET_SEARCH_PRODUCT',
   FILTER_DATA: 'FILTER_DATA',
   SORT_DATA: 'SORT_DATA',
+  RESET_FILTER: 'RESET_FILTER',
 };
 
 export default actionType;

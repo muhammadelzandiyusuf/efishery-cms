@@ -45,6 +45,7 @@ const TableCustom = ({ bodies, handleShowDelete, handleShowFormEdit }) => {
                     <span onClick={() => handleShowFormEdit(body.uuid)} className='table-button'>
                       <AiOutlineEdit className='icon' /> Edit
                     </span>
+                    <br />
                     <span onClick={() => handleShowDelete(body.uuid)} className='cursor-pointer'>
                       <BsTrash className='icon' /> Hapus
                     </span>

@@ -91,8 +91,6 @@ const getSortProducts = (state, action) => {
     [sort]: sort,
   };
 
-  console.log('sorting', sorting);
-
   const sortBy = state.lists.sort((firstEl, secondEl) =>
     sortingData(firstEl, secondEl, sorting[0], sorting[1])
   );
@@ -101,6 +99,14 @@ const getSortProducts = (state, action) => {
     ...state,
     products: sortBy.filter((item) => item),
     sortFilter: sortFilterData,
+  });
+};
+
+const resetFilters = (state) => {
+  return updateObject(state, {
+    ...state,
+    products: state.lists.filter((item) => item),
+    sortFilter: {},
   });
 };
 
@@ -114,6 +120,8 @@ const productReducer = (state = initialState, action) => {
       return getFilterProducts(state, action);
     case actionType.SORT_DATA:
       return getSortProducts(state, action);
+    case actionType.RESET_FILTER:
+      return resetFilters(state);
     default:
       return state;
   }

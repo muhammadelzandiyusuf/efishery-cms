@@ -19,3 +19,7 @@ export const getSortList = (sort) => ({
   type: actionType.SORT_DATA,
   data: sort,
 });
+
+export const resetFilter = () => ({
+  type: actionType.RESET_FILTER,
+});
