@@ -70,8 +70,6 @@ export const submitData = async (params) => {
     };
 
     await apiService(PostDataProduct, [data]);
-    const myColor = { background: '#274653', text: '#FFFFFF' };
-    notify.show('Saving Success', 'custom', 5000, myColor);
     result.status = true;
   } catch (error) {
     result.status = false;
@@ -109,8 +107,6 @@ export const updateData = async (params, id) => {
       search: { uuid: id },
       set: data,
     });
-    const myColor = { background: '#274653', text: '#FFFFFF' };
-    notify.show('Update Success', 'custom', 5000, myColor);
     result.status = true;
   } catch (error) {
     result.status = false;
@@ -121,6 +117,7 @@ export const updateData = async (params, id) => {
 };
 
 export const deleteData = async (id) => {
+  console.log('id', id);
   const result = {
     status: false,
   };

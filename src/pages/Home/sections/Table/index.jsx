@@ -42,11 +42,11 @@ const TableCustom = ({ bodies, handleShowDelete, handleShowFormEdit }) => {
                   <td>Rp. {formatCurrency(body.price, undefined, '.')}</td>
                   <td>{convertDate(body.tgl_parsed, 'DD-MM-YYYY')}</td>
                   <td>
-                    <span onClick={() => handleShowFormEdit(body.uuid)} className='table-button'>
+                    <span onClick={() => handleShowFormEdit(index)} className='table-button'>
                       <AiOutlineEdit className='icon' /> Edit
                     </span>
                     <br />
-                    <span onClick={() => handleShowDelete(body.uuid)} className='cursor-pointer'>
+                    <span onClick={() => handleShowDelete(index)} className='cursor-pointer'>
                       <BsTrash className='icon' /> Hapus
                     </span>
                   </td>
@@ -85,10 +85,10 @@ const TableCustom = ({ bodies, handleShowDelete, handleShowFormEdit }) => {
                 {convertDate(body.tgl_parsed, 'DD MMMM YYYY')}
               </div>
               <div className='table-action'>
-                <span onClick={() => handleShowFormEdit(body.uuid)} className='table-button'>
+                <span onClick={() => handleShowFormEdit(index)} className='table-button'>
                   <AiOutlineEdit className='icon' /> Edit
                 </span>
-                <span onClick={() => handleShowDelete(body.uuid)} className='cursor-pointer'>
+                <span onClick={() => handleShowDelete(index)} className='cursor-pointer'>
                   <BsTrash className='icon' /> Delete
                 </span>
               </div>

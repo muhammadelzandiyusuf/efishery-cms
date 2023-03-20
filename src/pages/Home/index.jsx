@@ -1,30 +1,81 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Localbase from 'localbase';
 import { notify } from 'react-notify-toast';
 
+import productSchema from '@/constants/productSchema';
 import { apiService } from '@/utils/api/actionGeneralApi';
 import { GetDataArea, GetDataProduct, GetDataSize } from '@/utils/api/methodConstApi';
 
 import HomeView from './HomeView';
 
-import { getCity, getListProduct, getProvince, getSearchProduct, getSize } from '../../redux';
-import { deleteData } from '@/utils/mixins';
+import {
+  getCity,
+  getListProduct,
+  getProvince,
+  getSearchProduct,
+  getSize,
+  productListSelector,
+} from '../../redux';
+import { deleteData, getSupportData, setDataForEdit, submitData, updateData } from '@/utils/mixins';
 
 const Home = () => {
+  const products = useSelector(productListSelector);
   const localDb = new Localbase('efishery');
   const dispatch = useDispatch();
   const [productID, setProductID] = useState('');
   const [isDeleteShow, setIsDeleteShow] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [schema, setSchema] = useState(productSchema);
+  const [onLoadSchema, setOnLoadSchema] = useState(false);
+  const [isShowForm, setIsShowForm] = useState(false);
+  const [formType, setFormType] = useState('add');
+  const [uuid, setUuid] = useState('');
 
-  const handleShowDelete = (id) => {
-    setProductID(id);
+  const getDataJsonToForm = async () => {
+    const newSchema = await getSupportData(schema);
+    setSchema(newSchema);
+    setOnLoadSchema(true);
+  };
+
+  const handleShowDelete = (index) => {
+    const content = index !== '' ? products[index] : index;
+    setUuid(content.uuid);
+    setProductID(content.komoditas);
     setIsDeleteShow(true);
   };
 
-  const handleShowFormEdit = (id) => {
-    console.log(id);
+  const handleShowFormEdit = (index) => {
+    setFormType('edit');
+    setOnLoadSchema(false);
+    const content = index !== '' ? products[index] : index;
+    setProductID(content.uuid);
+    const newSchema = setDataForEdit(schema, content);
+    setSchema(newSchema);
+    setOnLoadSchema(true);
+    if (index !== '') {
+      setIsShowForm(true);
+    }
+  };
+
+  const handleShowFormAdd = () => {
+    setIsShowForm(true);
+    setFormType('add');
+  };
+
+  const onSubmitForm = async (params) => {
+    setLoading(true);
+    const submit = await (formType === 'edit' ? updateData(params, productID) : submitData(params));
+    if (submit.status) {
+      getList();
+      setIsShowForm(false);
+      notify.show(
+        `Data komoditas berhasil ${formType === 'add' ? 'ditambahkan' : 'diupdate'}`,
+        'success',
+        5000
+      );
+    }
+    setLoading(false);
   };
 
   const onChangeSearch = (value) => {
@@ -33,7 +84,7 @@ const Home = () => {
 
   const handleDelete = useCallback(async () => {
     setLoading(true);
-    const submit = await deleteData(productID);
+    const submit = await deleteData(uuid);
     if (submit.status) {
       await getList();
       setIsDeleteShow(false);
@@ -41,6 +92,7 @@ const Home = () => {
     }
     setLoading(false);
   }, []);
+
   const getList = async () => {
     const listProduct = (await apiService(GetDataProduct)) || [];
     if (listProduct && listProduct.length > 0) {
@@ -129,6 +181,7 @@ const Home = () => {
     getList();
     getListOfLocation();
     getListOfSize();
+    getDataJsonToForm();
   }, []);
 
   return (
@@ -141,6 +194,13 @@ const Home = () => {
       productID={productID}
       handleDelete={handleDelete}
       loading={loading}
+      onLoadSchema={onLoadSchema}
+      isShowForm={isShowForm}
+      setIsShowForm={setIsShowForm}
+      handleShowFormAdd={handleShowFormAdd}
+      onSubmitForm={onSubmitForm}
+      formType={formType}
+      schema={schema}
     />
   );
 };

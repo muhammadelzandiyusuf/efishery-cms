@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 import { productListSelector } from '../../redux';
 
 const FormDelete = lazy(() => import('./sections/FormDelete'));
+const FormAdd = lazy(() => import('./sections/FormAdd'));
 
 const HomeView = ({
   onChangeSearch,
@@ -25,6 +26,13 @@ const HomeView = ({
   productID,
   handleDelete,
   loading,
+  onLoadSchema,
+  isShowForm,
+  setIsShowForm,
+  handleShowFormAdd,
+  onSubmitForm,
+  formType,
+  schema,
 }) => {
   const products = useSelector(productListSelector);
 
@@ -39,7 +47,7 @@ const HomeView = ({
             placeholder='Cari Data'
             icon={<AiOutlineSearch className='icon font-18 color-primary' />}
           />
-          <Button variant='primary'>
+          <Button variant='primary' onClick={handleShowFormAdd}>
             <span className='text-uppercase'>Tambah Komoditas</span>
             <AiOutlinePlus />
           </Button>
@@ -59,6 +67,14 @@ const HomeView = ({
           handleDelete={handleDelete}
           message='Apakah kamu yakin akan menghapus data berikut'
           loading={loading}
+        />
+        <FormAdd
+          show={isShowForm}
+          onHide={() => setIsShowForm(false)}
+          onSubmit={onSubmitForm}
+          onLoadSchema={onLoadSchema}
+          formType={formType}
+          schema={schema}
         />
       </section>
     </Layout>

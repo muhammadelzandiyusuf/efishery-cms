@@ -35,7 +35,7 @@ const sortingData = (firstEl, secondEl, name, order) => {
 const getProducts = (state, action) => {
   return updateObject(state, {
     ...state,
-    products: action.data,
+    products: action.data.filter((item) => item),
     lists: action.data,
   });
 };
