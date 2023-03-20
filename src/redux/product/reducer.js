@@ -7,6 +7,28 @@ const initialState = {
   sortFilter: {},
 };
 
+const sortingData = (firstEl, secondEl, name, order) => {
+  const objA = name === 'size' || name === 'price' ? parseInt(firstEl[name]) : firstEl[name];
+  const objB = name === 'size' || name === 'price' ? parseInt(secondEl[name]) : secondEl[name];
+  if (order === 'asc') {
+    if (objA < objB) {
+      return -1;
+    }
+    if (objA > objB) {
+      return 1;
+    }
+    return 0;
+  }
+
+  if (objA > objB) {
+    return -1;
+  }
+  if (objA < objB) {
+    return 1;
+  }
+  return 0;
+};
+
 const getProducts = (state, action) => {
   return updateObject(state, {
     ...state,
@@ -56,6 +78,27 @@ const getFilterProducts = (state, action) => {
   });
 };
 
+const getSortProducts = (state, action) => {
+  const sort = action.data.value;
+  const sorting = sort.split('-');
+  const sortFilterData = {
+    ...state.sortFilter,
+    [sort]: sort,
+  };
+
+  console.log('sorting', sorting);
+
+  const sortBy = state.lists.sort((firstEl, secondEl) =>
+    sortingData(firstEl, secondEl, sorting[0], sorting[1])
+  );
+
+  return updateObject(state, {
+    ...state,
+    products: sortBy.filter((item) => item),
+    sortFilter: sortFilterData,
+  });
+};
+
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionType.GET_LIST_PRODUCT:
@@ -64,6 +107,8 @@ const productReducer = (state = initialState, action) => {
       return getSearchProducts(state, action);
     case actionType.FILTER_DATA:
       return getFilterProducts(state, action);
+    case actionType.SORT_DATA:
+      return getSortProducts(state, action);
     default:
       return state;
   }

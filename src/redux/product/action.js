@@ -14,3 +14,8 @@ export const getFilterList = (filter) => ({
   type: actionType.FILTER_DATA,
   data: filter,
 });
+
+export const getSortList = (sort) => ({
+  type: actionType.SORT_DATA,
+  data: sort,
+});

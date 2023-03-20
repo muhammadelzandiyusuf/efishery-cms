@@ -3,7 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import SelectCustom from '@/components/Select';
 
-import { citySelector, getFilterList, provinceSelector, sizeSelector } from '../../../../redux';
+import {
+  citySelector,
+  getFilterList,
+  getSortList,
+  provinceSelector,
+  sizeSelector,
+} from '../../../../redux';
 
 import './filter.scss';
 import { listOfSort } from '@/constants/sort';
@@ -26,6 +32,15 @@ const Filter = () => {
     dispatch(getFilterList(obj));
   };
 
+  const sortData = (params, model) => {
+    const obj = {
+      model: model,
+      value: params,
+    };
+    console.log('log');
+    dispatch(getSortList(obj));
+  };
+
   return (
     <div className='filter'>
       <div className='filter-title'>Filter:</div>
@@ -39,7 +54,7 @@ const Filter = () => {
           filter={getProvince}
         />
         <SelectCustom title='Ukuran' data={sizes} model='size' action={filterData} />
-        <SelectCustom title='Urutkan' data={listOfSort} model='sort' action={filterData} />
+        <SelectCustom title='Urutkan' data={listOfSort} model='sort' action={sortData} />
       </div>
     </div>
   );
