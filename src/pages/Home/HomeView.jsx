@@ -39,7 +39,7 @@ const HomeView = () => {
             placeholder='Cari Data'
             icon={<AiOutlineSearch className='icon font-18 color-primary' />}
           />
-          <Button type='primary'>
+          <Button variant='primary'>
             <span className='text-uppercase'>Tambah Komoditas</span>
             <AiOutlinePlus />
           </Button>

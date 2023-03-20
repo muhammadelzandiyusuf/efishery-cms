@@ -1,8 +1,8 @@
 import './button.scss';
 
-const Button = ({ type, style, children, ...props }) => {
+const Button = ({ type, variant, style, children, ...props }) => {
   return (
-    <button data-testid='button' className={`button ${type} ${style}`} {...props}>
+    <button type={type} data-testid='button' className={`button ${variant} ${style}`} {...props}>
       {children}
     </button>
   );

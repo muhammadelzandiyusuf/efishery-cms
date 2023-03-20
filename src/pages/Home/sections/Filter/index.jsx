@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useForm, Controller } from 'react-hook-form';
 
 import SelectCustom from '@/components/Select';
 import { listOfSort } from '@/constants/sort';
@@ -23,6 +24,14 @@ const Filter = () => {
   const sizes = useSelector(sizeSelector);
   const [getProvince, setProvince] = useState('');
 
+  const defaultValues = {
+    province: '',
+    city: '',
+    size: '',
+    sort: '',
+  };
+  const { reset, control, handleSubmit } = useForm({ defaultValues });
+
   const filterData = (params, model) => {
     const obj = {
       model: model,
@@ -44,29 +53,81 @@ const Filter = () => {
 
   const handleResetFilter = () => {
     dispatch(resetFilter());
+    reset(defaultValues);
   };
 
   return (
-    <div className='filter'>
+    <form className='filter' onSubmit={handleSubmit(handleResetFilter)}>
       <div className='filter-title'>
         Filter:
-        <Button type='primary' onClick={handleResetFilter}>
+        <Button type='submit' variant='primary'>
           Reset Filter
         </Button>
       </div>
       <div className='filter-wrapper'>
-        <SelectCustom title='Provinsi' data={provinces} model='province' action={filterData} />
-        <SelectCustom
-          title='Kota'
-          data={cities}
-          model='city'
-          action={filterData}
-          filter={getProvince}
+        <Controller
+          render={({ field: { onChange, value } }) => (
+            <SelectCustom
+              title='Provinsi'
+              data={provinces}
+              model='province'
+              action={filterData}
+              onChange={onChange}
+              value={value}
+            />
+          )}
+          name='province'
+          control={control}
+          defaultValue=''
         />
-        <SelectCustom title='Ukuran' data={sizes} model='size' action={filterData} />
-        <SelectCustom title='Urutkan' data={listOfSort} model='sort' action={sortData} />
+        <Controller
+          render={({ field: { onChange, value } }) => (
+            <SelectCustom
+              title='Kota'
+              data={cities}
+              model='city'
+              action={filterData}
+              filter={getProvince}
+              onChange={onChange}
+              value={value}
+            />
+          )}
+          name='city'
+          control={control}
+          defaultValue=''
+        />
+        <Controller
+          render={({ field: { onChange, value } }) => (
+            <SelectCustom
+              title='Ukuran'
+              data={sizes}
+              model='size'
+              action={filterData}
+              onChange={onChange}
+              value={value}
+            />
+          )}
+          name='size'
+          control={control}
+          defaultValue=''
+        />
+        <Controller
+          render={({ field: { onChange, value } }) => (
+            <SelectCustom
+              title='Urutkan'
+              data={listOfSort}
+              model='sort'
+              action={sortData}
+              onChange={onChange}
+              value={value}
+            />
+          )}
+          name='sort'
+          control={control}
+          defaultValue=''
+        />
       </div>
-    </div>
+    </form>
   );
 };
 

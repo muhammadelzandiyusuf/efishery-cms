@@ -5,6 +5,9 @@ const initialState = {
   products: [],
   lists: [],
   sortFilter: {},
+  filterProvince: '',
+  filterCity: '',
+  filterSize: '',
 };
 
 const sortingData = (firstEl, secondEl, name, order) => {
@@ -80,6 +83,9 @@ const getFilterProducts = (state, action) => {
     ...state,
     products: filterList,
     sortFilter: sortFilter,
+    filterProvince: provinceFilter,
+    filterCity: cityFilter,
+    filterSize: sizeFilter,
   });
 };
 
@@ -95,9 +101,18 @@ const getSortProducts = (state, action) => {
     sortingData(firstEl, secondEl, sorting[0], sorting[1])
   );
 
+  const filterList = sortBy.filter(
+    (row) =>
+      row.area_provinsi &&
+      row.area_provinsi.toLowerCase().indexOf(state.filterProvince) > -1 &&
+      row.area_kota &&
+      row.area_kota.toLowerCase().indexOf(state.filterCity) > -1 &&
+      (row.size && row.size.toLowerCase().indexOf(state.filterSize)) > -1
+  );
+
   return updateObject(state, {
     ...state,
-    products: sortBy.filter((item) => item),
+    products: filterList,
     sortFilter: sortFilterData,
   });
 };
