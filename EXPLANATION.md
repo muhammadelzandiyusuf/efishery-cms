@@ -15,4 +15,7 @@ Fitur list data dibuat dengan konsep table yang clean agar tampilan terlihat rap
 ## Add, Edit, Delete Data
 Untuk proses CRUD saya menggunakan modal untuk memudahkan user dalam input data
 
-Terima Kasih.
+## Demo Link
+https://efishery-cms.web.app/
+
+## Terima Kasih.
