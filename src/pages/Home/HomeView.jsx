@@ -16,6 +16,7 @@ import { productListSelector } from '../../redux';
 
 const FormDelete = lazy(() => import('./sections/FormDelete'));
 const FormAdd = lazy(() => import('./sections/FormAdd'));
+const FormDetail = lazy(() => import('./sections/FromDetail'));
 
 const HomeView = ({
   onChangeSearch,
@@ -33,6 +34,10 @@ const HomeView = ({
   onSubmitForm,
   formType,
   schema,
+  handleDetail,
+  detailProduct,
+  isShowDetail,
+  setIsShowDetail,
 }) => {
   const products = useSelector(productListSelector);
 
@@ -58,6 +63,7 @@ const HomeView = ({
             bodies={products}
             handleShowDelete={handleShowDelete}
             handleShowFormEdit={handleShowFormEdit}
+            handleDetail={handleDetail}
           />
         </div>
         <FormDelete
@@ -75,6 +81,11 @@ const HomeView = ({
           onLoadSchema={onLoadSchema}
           formType={formType}
           schema={schema}
+        />
+        <FormDetail
+          show={isShowDetail}
+          onHide={() => setIsShowDetail(false)}
+          detail={detailProduct}
         />
       </section>
     </Layout>

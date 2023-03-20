@@ -117,7 +117,6 @@ export const updateData = async (params, id) => {
 };
 
 export const deleteData = async (id) => {
-  console.log('id', id);
   const result = {
     status: false,
   };

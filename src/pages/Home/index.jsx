@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Localbase from 'localbase';
 import { notify } from 'react-notify-toast';
@@ -31,6 +31,8 @@ const Home = () => {
   const [isShowForm, setIsShowForm] = useState(false);
   const [formType, setFormType] = useState('add');
   const [uuid, setUuid] = useState('');
+  const [detailProduct, setDetailProduct] = useState({});
+  const [isShowDetail, setIsShowDetail] = useState(false);
 
   const getDataJsonToForm = async () => {
     const newSchema = await getSupportData(schema);
@@ -38,14 +40,14 @@ const Home = () => {
     setOnLoadSchema(true);
   };
 
-  const handleShowDelete = (index) => {
+  const handleShowDelete = async (index) => {
     const content = index !== '' ? products[index] : index;
     setUuid(content.uuid);
     setProductID(content.komoditas);
     setIsDeleteShow(true);
   };
 
-  const handleShowFormEdit = (index) => {
+  const handleShowFormEdit = async (index) => {
     setFormType('edit');
     setOnLoadSchema(false);
     const content = index !== '' ? products[index] : index;
@@ -58,7 +60,7 @@ const Home = () => {
     }
   };
 
-  const handleShowFormAdd = () => {
+  const handleShowFormAdd = async () => {
     setIsShowForm(true);
     setFormType('add');
   };
@@ -82,7 +84,7 @@ const Home = () => {
     dispatch(getSearchProduct(value));
   };
 
-  const handleDelete = useCallback(async () => {
+  const handleDelete = async () => {
     setLoading(true);
     const submit = await deleteData(uuid);
     if (submit.status) {
@@ -91,7 +93,13 @@ const Home = () => {
       notify.show('Data komoditas berhasil dihapus', 'success', 5000);
     }
     setLoading(false);
-  }, []);
+  };
+
+  const handleDetail = async (index) => {
+    const content = index !== '' ? products[index] : index;
+    setDetailProduct(content);
+    setIsShowDetail(true);
+  };
 
   const getList = async () => {
     const listProduct = (await apiService(GetDataProduct)) || [];
@@ -201,6 +209,10 @@ const Home = () => {
       onSubmitForm={onSubmitForm}
       formType={formType}
       schema={schema}
+      handleDetail={handleDetail}
+      detailProduct={detailProduct}
+      isShowDetail={isShowDetail}
+      setIsShowDetail={setIsShowDetail}
     />
   );
 };

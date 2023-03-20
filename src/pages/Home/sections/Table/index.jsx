@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsTrash } from 'react-icons/bs';
+import { BiDetail } from 'react-icons/bi';
 
 import Pagination from '@/components/Pagination';
 import { getSliceData } from '@/utils/getSliceData';
@@ -9,7 +10,7 @@ import { formatCurrency } from '@/utils/formatCurrency';
 
 import '@/assets/scss/table.scss';
 
-const TableCustom = ({ bodies, handleShowDelete, handleShowFormEdit }) => {
+const TableCustom = ({ bodies, handleShowDelete, handleShowFormEdit, handleDetail }) => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const limit = 10;
@@ -42,13 +43,17 @@ const TableCustom = ({ bodies, handleShowDelete, handleShowFormEdit }) => {
                   <td>Rp. {formatCurrency(body.price, undefined, '.')}</td>
                   <td>{convertDate(body.tgl_parsed, 'DD-MM-YYYY')}</td>
                   <td>
-                    <span onClick={() => handleShowFormEdit(index)} className='table-button'>
-                      <AiOutlineEdit className='icon' /> Edit
-                    </span>
-                    <br />
-                    <span onClick={() => handleShowDelete(index)} className='cursor-pointer'>
-                      <BsTrash className='icon' /> Hapus
-                    </span>
+                    <div>
+                      <span onClick={() => handleDetail(index)} className={'mr-16p cursor-pointer'}>
+                        <BiDetail className='icon' /> Detail
+                      </span>
+                      <span onClick={() => handleShowFormEdit(index)} className='table-button'>
+                        <AiOutlineEdit className='icon' /> Edit
+                      </span>
+                      <span onClick={() => handleShowDelete(index)} className='cursor-pointer'>
+                        <BsTrash className='icon' /> Hapus
+                      </span>
+                    </div>
                   </td>
                 </tr>
               );
@@ -85,6 +90,9 @@ const TableCustom = ({ bodies, handleShowDelete, handleShowFormEdit }) => {
                 {convertDate(body.tgl_parsed, 'DD MMMM YYYY')}
               </div>
               <div className='table-action'>
+                <span onClick={() => handleDetail(index)} className='table-button'>
+                  <BiDetail className='icon' /> Detail
+                </span>
                 <span onClick={() => handleShowFormEdit(index)} className='table-button'>
                   <AiOutlineEdit className='icon' /> Edit
                 </span>
