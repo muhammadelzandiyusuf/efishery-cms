@@ -58,7 +58,7 @@ const Home = () => {
         } else {
           dispatch(getProvince(collections[0].data));
           localDb
-            .collection('province')
+            .collection('city')
             .get()
             .then((cities) => {
               dispatch(getCity(cities[0].data));
@@ -79,10 +79,13 @@ const Home = () => {
 
           if (resData && resData.length > 0) {
             resData.forEach((element) => {
-              const obj = {};
-              obj.value = element.size;
-              obj.label = element.size;
-              listOfSize.push(obj);
+              const checkDoubleCity = listOfSize.find((row) => row.label === element.city);
+              if (!checkDoubleCity) {
+                const obj = {};
+                obj.value = element.size;
+                obj.label = element.size;
+                listOfSize.push(obj);
+              }
             });
 
             dispatch(getSize(listOfSize));

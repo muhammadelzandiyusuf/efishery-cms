@@ -6,10 +6,10 @@ import Layout from '@/components/Layout';
 import Header from '@/components/Header';
 import Textfield from '@/components/Textfield';
 import Button from '@/components/Button';
-import Loading from '@/components/Loading';
 
 import { getSearchProduct, productListSelector } from '../../redux';
 
+import Filter from './sections/Filter';
 import TableCustom from './sections/Table';
 import './home.scss';
 
@@ -45,15 +45,12 @@ const HomeView = () => {
           </Button>
         </Header>
         <div className='home-table'>
-          {products.length > 0 ? (
-            <TableCustom
-              bodies={products}
-              handleShowDelete={handleShowDelete}
-              handleShowFormEdit={handleShowFormEdit}
-            />
-          ) : (
-            <Loading />
-          )}
+          <Filter />
+          <TableCustom
+            bodies={products}
+            handleShowDelete={handleShowDelete}
+            handleShowFormEdit={handleShowFormEdit}
+          />
         </div>
       </section>
     </Layout>

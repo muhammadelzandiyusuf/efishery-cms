@@ -51,12 +51,14 @@ a {
 }
 
 .alert{
+  margin-top: 16px;
   background-color: $primary;
   padding: 16px;
   border-radius: 8px;
   &-title {
     font-weight: 500;
     color: $text-grey;
+    font-size: 16px;
   }
 }
 
