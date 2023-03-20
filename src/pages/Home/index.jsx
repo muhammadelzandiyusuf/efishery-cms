@@ -47,24 +47,22 @@ const Home = () => {
     setOnLoadSchema(true);
   };
 
-  const handleShowDelete = async (index) => {
-    const content = index !== '' ? products[index] : index;
+  const handleShowDelete = async (id) => {
+    const content = products.find((item) => item.uuid === id);
     setUuid(content.uuid);
     setProductID(content.komoditas);
     setIsDeleteShow(true);
   };
 
-  const handleShowFormEdit = async (index) => {
+  const handleShowFormEdit = async (id) => {
     setFormType('edit');
     setOnLoadSchema(false);
-    const content = index !== '' ? products[index] : index;
+    const content = products.find((item) => item.uuid === id);
     setProductID(content.uuid);
     const newSchema = setDataForEdit(schema, content);
     setSchema(newSchema);
     setOnLoadSchema(true);
-    if (index !== '') {
-      setIsShowForm(true);
-    }
+    setIsShowForm(true);
   };
 
   const handleShowFormAdd = async () => {
@@ -88,7 +86,7 @@ const Home = () => {
     setLoading(false);
   };
 
-  const onChangeSearch = (value) => {
+  const onChangeSearch = async (value) => {
     dispatch(getSearchProduct(value));
   };
 
@@ -103,18 +101,20 @@ const Home = () => {
     setLoading(false);
   };
 
-  const handleDetail = async (index) => {
-    const content = index !== '' ? products[index] : index;
+  const handleDetail = async (id) => {
+    const content = products.find((item) => item.uuid === id);
     setDetailProduct(content);
     setIsShowDetail(true);
   };
 
   const getList = async () => {
+    setLoading(true);
     const listProduct = (await apiService(GetDataProduct)) || [];
     if (listProduct && listProduct.length > 0) {
       const products = listProduct.filter((list) => list.uuid !== null);
       dispatch(getListProduct(products));
     }
+    setLoading(false);
   };
 
   const getListOfLocation = async () => {

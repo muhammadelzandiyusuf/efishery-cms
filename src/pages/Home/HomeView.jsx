@@ -9,14 +9,15 @@ import Textfield from '@/components/Textfield';
 import Button from '@/components/Button';
 
 import Filter from './sections/Filter';
-import TableCustom from './sections/Table';
 import './home.scss';
 import { useSelector } from 'react-redux';
 import { productListSelector } from '../../redux';
+import Loading from '@/components/Loading';
 
 const FormDelete = lazy(() => import('./sections/FormDelete'));
 const FormAdd = lazy(() => import('./sections/FormAdd'));
 const FormDetail = lazy(() => import('./sections/FromDetail'));
+const TableCustom = lazy(() => import('./sections/Table'));
 
 const HomeView = ({
   onChangeSearch,
@@ -61,12 +62,15 @@ const HomeView = ({
         </Header>
         <div className='home-table'>
           <Filter />
-          <TableCustom
-            bodies={products}
-            handleShowDelete={handleShowDelete}
-            handleShowFormEdit={handleShowFormEdit}
-            handleDetail={handleDetail}
-          />
+          {loading && <Loading color='#4cc7a2' width='40px' height='40px' />}
+          {!loading && (
+            <TableCustom
+              bodies={products}
+              handleShowDelete={handleShowDelete}
+              handleShowFormEdit={handleShowFormEdit}
+              handleDetail={handleDetail}
+            />
+          )}
         </div>
         <FormDelete
           show={isDeleteShow}

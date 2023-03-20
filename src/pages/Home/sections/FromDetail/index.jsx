@@ -22,13 +22,13 @@ const FormDetail = (props) => {
           <Row>
             <Col xs={12} sm={12} md={6} lg={6}>
               <label className='label'>Komoditas</label>
-              <p>{props.detail.komoditas}</p>
+              <p>{props.detail.komoditas !== null ? props.detail.komoditas : '-'}</p>
 
               <label className='label'>Provinsi</label>
-              <p>{props.detail.area_provinsi}</p>
+              <p>{props.detail.area_provinsi !== null ? props.detail.area_provinsi : '-'}</p>
 
               <label className='label'>Kota</label>
-              <p>{props.detail.area_kota}</p>
+              <p>{props.detail.area_kota !== null ? props.detail.area_kota : '-'}</p>
             </Col>
             <Col xs={12} sm={12} md={6} lg={6}>
               <label className='label'>Ukuran</label>

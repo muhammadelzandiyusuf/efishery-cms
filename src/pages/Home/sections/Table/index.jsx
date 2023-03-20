@@ -44,13 +44,16 @@ const TableCustom = ({ bodies, handleShowDelete, handleShowFormEdit, handleDetai
                   <td>{convertDate(body.tgl_parsed, 'DD-MM-YYYY')}</td>
                   <td>
                     <div>
-                      <span onClick={() => handleDetail(index)} className={'mr-16p cursor-pointer'}>
+                      <span
+                        onClick={() => handleDetail(body.uuid)}
+                        className={'mr-16p cursor-pointer'}
+                      >
                         <BiDetail className='icon' /> Detail
                       </span>
-                      <span onClick={() => handleShowFormEdit(index)} className='table-button'>
+                      <span onClick={() => handleShowFormEdit(body.uuid)} className='table-button'>
                         <AiOutlineEdit className='icon' /> Edit
                       </span>
-                      <span onClick={() => handleShowDelete(index)} className='cursor-pointer'>
+                      <span onClick={() => handleShowDelete(body.uuid)} className='cursor-pointer'>
                         <BsTrash className='icon' /> Hapus
                       </span>
                     </div>
@@ -90,13 +93,13 @@ const TableCustom = ({ bodies, handleShowDelete, handleShowFormEdit, handleDetai
                 {convertDate(body.tgl_parsed, 'DD MMMM YYYY')}
               </div>
               <div className='table-action'>
-                <span onClick={() => handleDetail(index)} className='table-button'>
+                <span onClick={() => handleDetail(body.uuid)} className='table-button'>
                   <BiDetail className='icon' /> Detail
                 </span>
-                <span onClick={() => handleShowFormEdit(index)} className='table-button'>
+                <span onClick={() => handleShowFormEdit(body.uuid)} className='table-button'>
                   <AiOutlineEdit className='icon' /> Edit
                 </span>
-                <span onClick={() => handleShowDelete(index)} className='cursor-pointer'>
+                <span onClick={() => handleShowDelete(body.uuid)} className='cursor-pointer'>
                   <BsTrash className='icon' /> Delete
                 </span>
               </div>

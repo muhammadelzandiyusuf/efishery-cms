@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { AiOutlineLineChart, AiOutlineHome } from 'react-icons/ai';
+import { AiOutlineHome } from 'react-icons/ai';
 
 import LogoImage from '@/assets/images/logo.png';
 
@@ -36,12 +36,6 @@ const Sidebar = () => {
             onClick={() => handleToLink('/')}
           >
             <AiOutlineHome className='icon' /> Beranda
-          </div>
-          <div
-            className={`${pathName[1] === 'chart' ? 'active' : ''}`}
-            onClick={() => handleToLink('/chart')}
-          >
-            <AiOutlineLineChart className='icon' /> Chart
           </div>
         </div>
       </div>

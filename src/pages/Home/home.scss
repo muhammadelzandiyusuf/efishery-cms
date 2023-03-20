@@ -4,4 +4,9 @@
 .home-table {
   margin-left: 24px;
   margin-right: 24px;
+
+  @media(max-width: $screen-md){
+    margin-right: 16px;
+    margin-left: 16px;
+  }
 }
