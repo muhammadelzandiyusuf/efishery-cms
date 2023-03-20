@@ -8,7 +8,6 @@ const initialState = {
 };
 
 const getProvinces = (state, action) => {
-  console.log('action.data', action.data);
   return updateObject(state, {
     ...state,
     provinces: action.data,

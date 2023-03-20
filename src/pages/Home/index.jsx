@@ -1,27 +1,26 @@
 import { useEffect } from 'react';
-import { Helmet } from 'react-helmet';
-import { AiOutlinePlus, AiOutlineSearch } from 'react-icons/ai';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Localbase from 'localbase';
 
-import Layout from '@/components/Layout';
-import Header from '@/components/Header';
-import Textfield from '@/components/Textfield';
-import Button from '@/components/Button';
 import { apiService } from '@/utils/api/actionGeneralApi';
 import { GetDataArea, GetDataProduct, GetDataSize } from '@/utils/api/methodConstApi';
 
-import { getCity, getProvince, getSize, provinceSelector } from '../../redux';
+import HomeView from './HomeView';
+
+import { getCity, getListProduct, getProvince, getSize } from '../../redux';
 
 const Home = () => {
   const localDb = new Localbase('efishery');
   const dispatch = useDispatch();
-  const provinces = useSelector(provinceSelector);
-  console.log('provinces', provinces);
+
   const getList = async () => {
-    const listProduct = await apiService(GetDataProduct);
-    console.log('listProduct', listProduct);
+    const listProduct = (await apiService(GetDataProduct)) || [];
+    if (listProduct && listProduct.length > 0) {
+      const products = listProduct.filter((list) => list.uuid !== null);
+      dispatch(getListProduct(products));
+    }
   };
+
   const getListOfLocation = async () => {
     const listOfProvince = [];
     const listOfCity = [];
@@ -101,23 +100,7 @@ const Home = () => {
     getListOfSize();
   }, []);
 
-  return (
-    <Layout>
-      <Helmet>Daftar Harga - eFishery</Helmet>
-      <section>
-        <Header title='Perikanan Management' desc='Data harga perikanan Indonesia'>
-          <Textfield
-            placeholder='Cari Harga Ikan'
-            icon={<AiOutlineSearch className='icon font-18 color-primary' />}
-          />
-          <Button type='primary'>
-            <span className='text-uppercase'>Tambah Harga</span>
-            <AiOutlinePlus className='font-18 ml-8p' />
-          </Button>
-        </Header>
-      </section>
-    </Layout>
-  );
+  return <HomeView />;
 };
 
 export default Home;

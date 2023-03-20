@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 
 import toggleMenuReducer from './menu/reducer';
 import propertyReducer from './property/reducer';
+import productReducer from './product/reducer';
 
 const composeEnhancers =
   (process.env.NODE_ENV === 'development'
@@ -15,6 +16,7 @@ const composeEnhancers =
 export const reducer = combineReducers({
   menu: toggleMenuReducer,
   property: propertyReducer,
+  product: productReducer,
 });
 
 /**
@@ -27,9 +29,11 @@ export const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk
  */
 export * from './menu/action';
 export * from './property/action';
+export * from './product/action';
 
 /**
  * selector
  */
 export * from './menu/selector';
 export * from './property/selector';
+export * from './product/selector';

@@ -1,4 +1,5 @@
 @import './colors';
+@import './screensizes';
 
 *,
 ::after,
@@ -37,4 +38,40 @@ a {
   width: 100vw;
   height: 100vh;
   background-color: rgba($color: #000000, $alpha: 0.5);
+}
+
+// Toast
+.toast-notification{
+  width: 96% !important;
+  text-align: right !important;
+  top: 30px !important;
+  span{
+    border-radius: 5px !important;
+  }
+}
+
+.alert{
+  background-color: $primary;
+  padding: 16px;
+  border-radius: 8px;
+  &-title {
+    font-weight: 500;
+    color: $text-grey;
+  }
+}
+
+.mobile-view {display: none;}
+.desktop-view {display: block;}
+.table>:not(:first-child){border-top: none !important;}
+.table>:not(caption)>*>*{border-bottom: none;}
+.cursor-pointer{cursor: pointer}
+
+@media(max-width: $screen-sm){
+  .mobile-view {
+    display: block;
+  }
+
+  .desktop-view {
+    display: none;
+  }
 }

@@ -1,0 +1,49 @@
+@import 'screensizes';
+@import 'colors';
+
+.table {
+  justify-content: space-between;
+  align-items: center;
+  .table-box {
+    padding: 32px;
+    background-color: $white;
+    border-radius: 8px;
+    width: 100%;
+    margin-top: 16px;
+    .table-label {
+      margin-bottom: 8px;
+    }
+  }
+  .table-button {
+    cursor: pointer;
+    margin-right: 16px;
+  }
+  table {
+    width: 100%;
+    border-spacing: 0;
+    thead {
+      background-color: $white;
+      border-radius: 8px;
+      th {
+        text-align: left;
+        padding: 28px;
+        font-size: 14px;
+        border-bottom: 1px solid #eeeeee;
+      }
+    }
+    tbody {
+      background-color: $white;
+      border-radius: 8px;
+      td {
+        text-align: left;
+        padding: 24px 28px;
+        font-size: 14px;
+      }
+    }
+    @media(max-width: $screen-sm){
+      flex-direction: column;
+      justify-content: start;
+      align-items: flex-start;
+    }
+  }
+}
