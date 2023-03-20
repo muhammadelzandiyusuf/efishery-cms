@@ -60,18 +60,6 @@ a {
   }
 }
 
-.mobile-view {display: none;}
-.desktop-view {display: block;}
 .table>:not(:first-child){border-top: none !important;}
 .table>:not(caption)>*>*{border-bottom: none;}
 .cursor-pointer{cursor: pointer}
-
-@media(max-width: $screen-sm){
-  .mobile-view {
-    display: block;
-  }
-
-  .desktop-view {
-    display: none;
-  }
-}

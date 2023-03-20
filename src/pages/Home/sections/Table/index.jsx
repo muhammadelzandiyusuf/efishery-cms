@@ -16,8 +16,8 @@ const TableCustom = ({ bodies, handleShowDelete, handleShowFormEdit }) => {
   const getSlice = getSliceData(params, limit);
 
   return (
-    <div className={'table'}>
-      <div className={'desktop-view'}>
+    <div className='table'>
+      <div className='desktop-view'>
         <table>
           <thead>
             <tr>
@@ -43,10 +43,10 @@ const TableCustom = ({ bodies, handleShowDelete, handleShowFormEdit }) => {
                   <td>{convertDate(body.tgl_parsed)}</td>
                   <td>
                     <span onClick={() => handleShowFormEdit(body.uuid)} className='table-button'>
-                      <AiOutlineEdit className={'icon'} /> Edit
+                      <AiOutlineEdit className='icon' /> Edit
                     </span>
                     <span onClick={() => handleShowDelete(body.uuid)} className='cursor-pointer'>
-                      <BsTrash className={'icon'} /> Hapus
+                      <BsTrash className='icon' /> Hapus
                     </span>
                   </td>
                 </tr>
@@ -55,22 +55,40 @@ const TableCustom = ({ bodies, handleShowDelete, handleShowFormEdit }) => {
           </tbody>
         </table>
       </div>
-      <div className={'mobile-view'}>
+      <div className='mobile-view'>
         {bodies.slice(getSlice.from, getSlice.to).map((body, index) => {
           return (
-            <div className={'table-box'} key={index}>
-              <div className={'table-label'}>{body.komoditas}</div>
-              <div className={'table-label'}>{body.area_provinsi}</div>
-              <div className={'table-label'}>{body.area_kota}</div>
-              <div className={'table-label'}>{body.size}</div>
-              <div className={'table-label'}>{body.price}</div>
-              <div className={'table-label'}>{convertDate(body.dateJoined)}</div>
-              <div className={'table-label'}>
-                <span onClick={() => handleShowFormEdit(body.uuid)} className={'table-button'}>
-                  <AiOutlineEdit className={'icon'} /> Edit
+            <div className='table-box' key={index}>
+              <div className='table-label'>
+                <div className='table-label-property'>Komoditas</div>
+                {body.komoditas !== null ? body.komoditas : '-'}
+              </div>
+              <div className='table-label'>
+                <div className='table-label-property'>Provinsi</div>
+                {body.area_provinsi !== null ? body.area_provinsi : '-'}
+              </div>
+              <div className='table-label'>
+                <div className='table-label-property'>Kota</div>
+                {body.area_kota !== null ? body.area_kota : '-'}
+              </div>
+              <div className='table-label'>
+                <div className='table-label-property'>Ukuran</div>
+                {body.size}
+              </div>
+              <div className='table-label'>
+                <div className='table-label-property'>Harga</div>
+                Rp. {formatCurrency(body.price, undefined, '.')}
+              </div>
+              <div className='table-label'>
+                <div className='table-label-property'>Tanggal</div>
+                {convertDate(body.dateJoined)}
+              </div>
+              <div className='table-action'>
+                <span onClick={() => handleShowFormEdit(body.uuid)} className='table-button'>
+                  <AiOutlineEdit className='icon' /> Edit
                 </span>
-                <span onClick={() => handleShowDelete(body.uuid)} className={'cursor-pointer'}>
-                  <BsTrash className={'icon'} /> Delete
+                <span onClick={() => handleShowDelete(body.uuid)} className='cursor-pointer'>
+                  <BsTrash className='icon' /> Delete
                 </span>
               </div>
             </div>
